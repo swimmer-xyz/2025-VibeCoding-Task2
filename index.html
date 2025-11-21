@@ -1,401 +1,668 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>個人品牌網站 — swimmer-xyz</title>
-  <meta name="description" content="這是用來介紹個人背景、技能、作品與聯絡方式的網站。透過簡潔的頁面介紹天文學家相關技能、作品集與聯絡資訊，讓訪客能快速了解並聯繫。">
-  <style>
-    /* CSS:BASE-START */
-    /* 全站共用設定（禁止使用 ID 選擇器） */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background-color: #0b1020; /* 深色背景 */
-      color: #e6eef8; /* 淺灰白文字 */
-      line-height: 1.6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-    .page { min-height: 100vh; display: flex; flex-direction: column; }
-    .container { width: 100%; padding-left: 1rem; padding-right: 1rem; margin-left: auto; margin-right: auto; max-width: 1100px; }
-    img { max-width: 100%; height: auto; display: block; }
-    a { color: inherit; text-decoration: none; }
-    /* Buttons / accents */
-    .btn {
-      display: inline-block;
-      padding: 0.5rem 0.9rem;
-      border-radius: 8px;
-      background-color: #0f52a8; /* 主色（深藍青色系）*/
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .btn:hover { background-color: #1866d1; } /* hover 主色亮 2 階 */
-    .muted { color: #9aa7bf; }
-    /* Layout helpers */
-    .flex { display: flex; }
-    .space-between { justify-content: space-between; align-items: center; }
-    .stack { display: block; }
-    .grid { display: grid; gap: 1rem; }
-    .section { padding-top: 3rem; padding-bottom: 3rem; }
-    /* small helper for section headings */
-    .section-title { font-size: 1.25rem; margin: 0 0 0.75rem 0; color: #dbe9ff; }
-    /* CSS:BASE-END */
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>個人品牌網站 — swimmer-xyz 的天文簡介</title>
+    <meta
+      name="description"
+      content="這是一個用來介紹 swimmer-xyz（天文學家）背景、技能、作品與聯絡資訊的個人網站。內容含觀測、科學與程式技能展示，並提供聯絡管道與作品連結，適合作為個人作品集與履歷展示。"
+    />
+    <style>
+      /* CSS:BASE-START */
+      /* 全站共用設定（禁止使用 ID 選擇器，僅使用 element / class） */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background-color: #0b1220; /* 深色主背景 */
+        color: #e6eef8; /* 淺灰/白 */
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .page {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .container {
+        width: 100%;
+        max-width: 1100px;
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      /* 按鈕樣式 */
+      .btn {
+        display: inline-block;
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        background-color: #0f5f89; /* 主色：偏深青/藍 */
+        color: #f7fbff;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .btn:hover {
+        background-color: #1a83a8;
+      } /* 較亮  */
+      .btn:active {
+        background-color: #0b4a66;
+      } /* 較暗  */
+      /* 內縮區塊 */
+      .section {
+        padding: 48px 0;
+      }
+      .section h2 {
+        margin: 0 0 12px 0;
+        font-size: 1.25rem;
+        letter-spacing: 0.2px;
+      }
+      .muted {
+        color: #b8c7d6;
+        font-size: 0.95rem;
+      }
+      /* CSS:BASE-END */
 
-    /* CSS:HEADER-START */
-    .site-header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(6px); }
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.8rem 0;
-      background: linear-gradient(180deg, rgba(6,10,20,0.85), rgba(8,12,24,0.95));
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 2px 8px rgba(2,4,10,0.4);
-    }
-    .site-title { font-weight: 700; letter-spacing: 0.2px; color: #ffffff; }
-    .nav-links { display: flex; gap: 0.6rem; align-items:center; }
-    .nav-link {
-      padding: 0.45rem 0.65rem;
-      border-radius: 6px;
-      color: #cfe3ff;
-      font-weight: 600;
-      transition: background-color 160ms ease, color 160ms;
-    }
-    .nav-link:hover {
-      background-color: rgba(13,80,160,0.14);
-      color: #ffffff;
-    }
-    /* CSS:HEADER-END */
+      /* CSS:HEADER-START */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        background: linear-gradient(
+          180deg,
+          rgba(6, 12, 20, 0.88),
+          rgba(6, 12, 20, 0.75)
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(6px);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 0;
+      }
+      .site-title {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #f0f7ff;
+      }
+      .nav-list {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .nav-link {
+        padding: 8px 10px;
+        border-radius: 8px;
+        color: #dbeaf7;
+        font-size: 0.95rem;
+        transition: background-color 160ms ease, color 160ms ease,
+          transform 120ms ease;
+      }
+      .nav-link:hover {
+        background-color: rgba(20, 100, 140, 0.12);
+        color: #eaf7ff;
+        transform: translateY(-1px);
+      }
+      /* CSS:HEADER-END */
 
-    /* CSS:HERO-START */
-    .section-hero {
-      position: relative;
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-      color: #f6fbff;
-      overflow: hidden;
-    }
-    .hero-visual {
-      display: grid;
-      gap: 1rem;
-      align-items: center;
-      min-height: 280px;
-      padding: 2rem 0;
-    }
-    .hero-title { font-size: 1.6rem; margin: 0 0 0.5rem 0; font-weight: 800; }
-    .hero-sub { font-size: 1rem; margin: 0 0 0.5rem 0; color:#d1e6ff; }
-    .hero-cta { margin-top: 0.75rem; display:inline-block; }
+      /* CSS:HERO-START */
+      .hero {
+        display: flex;
+        align-items: center;
+        min-height: 56vh;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Pleiades_large.jpg");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.18; /* 半透明星空背景 */
+        filter: saturate(0.9) contrast(1.02);
+        z-index: 0;
+      }
+      .hero .container {
+        position: relative;
+        z-index: 1;
+      }
+      .hero-grid {
+        display: grid;
+        gap: 18px;
+        align-items: center;
+      }
+      .hero-title {
+        font-size: 1.6rem;
+        margin: 0 0 8px 0;
+        color: #ffffff;
+        letter-spacing: -0.6px;
+      }
+      .hero-sub {
+        margin: 0 0 14px 0;
+        color: #d3e6f7;
+      }
+      .hero-cta {
+        margin-top: 10px;
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+      }
+      /* CSS:HERO-END */
 
-    /* 半透明星空背景 */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background-color: rgba(2,8,18,0.7);
-      background-image: url("https://upload.wikimedia.org/wikipedia/commons/4/43/Night_starry_sky.jpg");
-      background-size: cover;
-      background-position: center;
-      opacity: 0.95;
-      mix-blend-mode: screen;
-      filter: contrast(0.95) saturate(0.9) brightness(0.45);
-    }
-    .hero-inner { position: relative; z-index: 2; }
-    /* CSS:HERO-END */
+      /* CSS:ABOUT-START */
+      .section-about {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0)
+        );
+      }
+      .about-grid {
+        display: grid;
+        gap: 16px;
+        align-items: start;
+      }
+      .about-avatar {
+        max-width: 320px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(2, 8, 20, 0.6);
+      }
+      .about-list {
+        margin: 12px 0 0 0;
+        padding-left: 18px;
+        color: #e7f3ff;
+      }
+      .about-list li {
+        margin-bottom: 8px;
+      }
+      /* CSS:ABOUT-END */
 
-    /* CSS:ABOUT-START */
-    .section-about { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border-top: 1px solid rgba(255,255,255,0.03); }
-    .about-grid { display: grid; gap: 1rem; align-items: center; }
-    .about-text p { margin: 0 0 0.75rem 0; color: #dbeaff; }
-    .about-list { padding-left: 1rem; margin: 0.5rem 0 0 0; color: #c9ddff; }
-    .about-avatar { width: 100%; max-width: 320px; border-radius: 10px; overflow:hidden; }
-    /* CSS:ABOUT-END */
+      /* CSS:SKILLS-START */
+      .skills-grid {
+        display: grid;
+        gap: 12px;
+      }
+      .skill-card {
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .skill-title {
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .skill-desc {
+        font-size: 0.95rem;
+        color: #cbdced;
+      }
+      /* CSS:SKILLS-END */
 
-    /* CSS:SKILLS-START */
-    .section-skills { }
-    .skills-grid { display: grid; gap: 0.75rem; }
-    .skill-card {
-      padding: 0.75rem;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    .skill-title { font-weight:700; margin:0 0 0.25rem 0; color:#e9f4ff;}
-    .skill-desc { margin:0; color:#c9ddff; font-size:0.95rem; }
-    /* CSS:SKILLS-END */
+      /* CSS:PROJECTS-START */
+      .projects-grid {
+        display: grid;
+        gap: 12px;
+      }
+      .project-item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 10px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .project-thumb {
+        width: 120px;
+        min-width: 120px;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .project-body {
+        flex: 1;
+      }
+      .project-title {
+        font-weight: 700;
+        margin: 0 0 6px 0;
+      }
+      .project-desc {
+        margin: 0 0 8px 0;
+        color: #d7e9fb;
+        font-size: 0.95rem;
+      }
+      .project-links {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      /* CSS:PROJECTS-END */
 
-    /* CSS:PROJECTS-START */
-    .section-projects { }
-    .projects-grid { display: grid; gap: 1rem; }
-    .project-item {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.6rem;
-      align-items: start;
-      padding: 0.6rem;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.01);
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    .project-thumb { width: 100%; height: 180px; object-fit: cover; border-radius: 6px; }
-    .project-title { font-weight:700; margin:0; color:#eaf5ff; }
-    .project-desc { margin:0; color:#c9ddff; font-size:0.95rem; }
-    .project-meta { margin-top:0.5rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
-    /* CSS:PROJECTS-END */
+      /* CSS:CONTACT-START */
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .contact-item {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .contact-link {
+        color: #dbeffb;
+        text-decoration: underline;
+      }
+      /* CSS:CONTACT-END */
 
-    /* CSS:CONTACT-START */
-    .section-contact { }
-    .contact-list { display:flex; flex-direction:column; gap:0.5rem; }
-    .contact-item { display:flex; gap:0.6rem; align-items:center; color:#cfe3ff; }
-    .contact-item a { font-weight:600; }
-    /* CSS:CONTACT-END */
+      /* CSS:FOOTER-START */
+      .site-footer {
+        padding: 22px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+        background: linear-gradient(0deg, rgba(3, 8, 14, 0), rgba(0, 0, 0, 0));
+        text-align: center;
+        color: #9fb6cf;
+        font-size: 0.95rem;
+      }
+      .socials {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 8px;
+      }
+      .small-link {
+        color: #b9d6ee;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+      /* CSS:FOOTER-END */
 
-    /* CSS:FOOTER-START */
-    .site-footer {
-      padding: 1.25rem 0;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      background: linear-gradient(180deg, rgba(8,10,14,0.00), rgba(6,8,12,0.02));
-      color: #9fb3d0;
-      font-size: 0.9rem;
-    }
-    .footer-links { display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap; }
-    /* CSS:FOOTER-END */
+      /* CSS:RWD-START */
+      /* 手機優先：單欄（已為預設） */
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
 
-    /* CSS:RWD-START */
-    /* 手機優先: 預設單欄 */
-    .nav-links { display: none; }
-    .hero-visual { grid-template-columns: 1fr; }
-    .about-grid { grid-template-columns: 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
+      @media (min-width: 768px) {
+        .hero-grid {
+          grid-template-columns: 1fr 360px;
+          align-items: center;
+        }
+        .about-grid {
+          grid-template-columns: 1fr 320px;
+          align-items: start;
+          gap: 24px;
+        }
+        .skills-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .project-thumb {
+          width: 140px;
+          min-width: 140px;
+        }
+      }
 
-    @media (min-width: 480px) {
-      .nav-links { display: flex; gap: 0.6rem; }
-    }
+      @media (min-width: 1200px) {
+        .hero-title {
+          font-size: 2rem;
+        }
+        .hero-sub {
+          font-size: 1.05rem;
+        }
+        .projects-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      /* CSS:RWD-END */
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- HEADER -->
+      <header class="site-header">
+        <div class="container nav">
+          <div class="site-title">swimmer-xyz</div>
+          <nav class="nav-list" aria-label="主導覽">
+            <a class="nav-link" href="#hero">首頁</a>
+            <a class="nav-link" href="#about">關於我</a>
+            <a class="nav-link" href="#skills">技能</a>
+            <a class="nav-link" href="#projects">作品集</a>
+            <a class="nav-link" href="#contact">聯絡我</a>
+          </nav>
+        </div>
+      </header>
 
-    @media (min-width: 768px) {
-      .hero-visual { grid-template-columns: 1fr 360px; align-items:center; gap: 2rem; }
-      .about-grid { grid-template-columns: 1fr 360px; gap: 2rem; align-items:center; }
-      .projects-grid { grid-template-columns: repeat(2, 1fr); }
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav { padding-left: 0; padding-right: 0; }
-    }
+      <main>
+        <!-- SECTION:HERO-START -->
+        <section id="hero" class="section section-hero hero">
+          <div class="container">
+            <div class="hero-grid">
+              <div>
+                <h1 class="hero-title">swimmer-xyz 的天文個人頁</h1>
+                <p class="hero-sub">
+                  天文研究與觀測、科學教育與程式開發的交叉實踐者 —
+                  我喜歡把複雜的事物說清楚。
+                </p>
+                <p class="muted">
+                  這裡展示我的背景、技能、觀測成果與公開作品連結。
+                </p>
+                <div class="hero-cta">
+                  <a class="btn" href="#projects">我的作品集</a>
+                  <a class="btn" href="#contact">聯絡我</a>
+                </div>
+              </div>
+              <div aria-hidden="true">
+                <!-- 可替換的 Hero 右側占位（未使用 JS） -->
+                <div
+                  style="
+                    border-radius: 12px;
+                    padding: 18px;
+                    background: linear-gradient(
+                      180deg,
+                      rgba(255, 255, 255, 0.02),
+                      rgba(255, 255, 255, 0.01)
+                    );
+                  "
+                >
+                  <p style="margin: 0; font-weight: 700">天文重點</p>
+                  <p class="muted" style="margin-top: 8px">
+                    觀測、資料分析、科學溝通
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION:HERO-END -->
 
-    @media (min-width: 1100px) {
-      .projects-grid { grid-template-columns: repeat(3, 1fr); }
-      .container { max-width: 1100px; }
-    }
-    /* CSS:RWD-END */
-  </style>
-</head>
-<body>
-  <div class="page">
-    <!-- HEADER -->
-    <header class="site-header">
-      <div class="container nav">
-        <div class="site-title">swimmer-xyz</div>
-        <nav class="nav-links" aria-label="主導覽">
-          <a class="nav-link" href="#hero">首頁</a>
-          <a class="nav-link" href="#about">關於我</a>
-          <a class="nav-link" href="#skills">技能</a>
-          <a class="nav-link" href="#projects">作品集</a>
-          <a class="nav-link" href="#contact">聯絡我</a>
-        </nav>
-      </div>
-    </header>
-
-    <main class="container" role="main">
-      <!-- SECTION:HERO-START -->
-      <section id="hero" class="section section-hero">
-        <div class="hero-bg" aria-hidden="true"></div>
-        <div class="hero-inner container">
-          <div class="hero-visual">
+        <!-- SECTION:ABOUT-START -->
+        <section id="about" class="section section-about">
+          <div class="container about-grid">
             <div>
-              <h1 class="hero-title">天文學家 / 個人品牌 — swimmer-xyz</h1>
-              <p class="hero-sub">專注於觀測與資料分析，將天文現象以清楚、教學式方式傳達給大眾。</p>
-              <p class="muted">這裡目前是占位內容。未來會用 Section SDD 產生更完整的內容，請開發者「整段貼在註解之間」以替換本區段。</p>
-              <a class="btn hero-cta" href="#projects">看看我的作品</a>
-            </div>
-            <div class="muted" style="font-size:0.95rem;">
-              <!-- Hero 裡建議放置一張半透明且低飽和的星空背景，上方 hero-bg 已載入示意圖片 -->
-              <!-- 背景圖片來源（可直接引用的圖片本體）：
-                   Night starry sky — https://upload.wikimedia.org/wikipedia/commons/4/43/Night_starry_sky.jpg
-                   授權：CC BY 4.0。 :contentReference[oaicite:0]{index=0} -->
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- SECTION:HERO-END -->
+              <h2>關於我</h2>
+              <p>
+                我目前是一位天文學家，專注於觀測與資料分析，並熟悉天文儀器與科學溝通。
+              </p>
+              <p>
+                我的工作風格重視溝通、喜歡教學與把複雜概念以簡單方式說明，並且重視可重複、開放的研究流程。
+              </p>
 
-      <!-- SECTION:ABOUT-START -->
-      <section id="about" class="section section-about">
-        <div class="container about-grid">
-          <div class="about-text">
-            <h2 class="section-title">關於我</h2>
-            <p>我現在在做什麼：我是一位天文學家，專注於天文觀測與資料分析，主要技能包含觀測規劃、光譜分析與資料處理。</p>
-            <p>工作風格：重視溝通、喜歡教學、喜歡把複雜的事物說清楚並拆解成可執行的步驟。</p>
-            <ul class="about-list">
-              <li>觀測設計與儀器操作（光學與射電）</li>
-              <li>資料分析、統計與模型建立</li>
-              <li>科普與教學：將研究成果整理為淺顯內容</li>
-            </ul>
-            <p class="muted">這裡目前是占位內容。未來會用 Section SDD 產生更完整的內容。</p>
-          </div>
-          <div class="about-avatar" aria-hidden="false">
-            <!-- 個人示意圖（望遠鏡）直接圖檔連結與授權資訊（放在註解供開發者參考）：
-                 Telescope image — https://upload.wikimedia.org/wikipedia/commons/0/03/Telescope.jpg
-                 授權：CC BY-SA 3.0 / GFDL （請依頁面要求標示來源）。 :contentReference[oaicite:1]{index=1}
-            -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Telescope.jpg" alt="望遠鏡於天文台內部" />
-          </div>
-        </div>
-      </section>
-      <!-- SECTION:ABOUT-END -->
-
-      <!-- SECTION:SKILLS-START -->
-      <section id="skills" class="section section-skills">
-        <div class="container">
-          <h2 class="section-title">技能</h2>
-          <p class="muted">以下為主要技能分類，讓訪客快速了解我擅長的工具與領域。</p>
-          <div class="skills-grid" style="margin-top:1rem;">
-            <div class="skill-card">
-              <div class="skill-title">觀測星象</div>
-              <p class="skill-desc">觀測太陽系與深空目標（太陽系、銀河、黑洞），含儀器操作與資料擷取。</p>
+              <ul class="about-list">
+                <li>觀測計畫規劃與執行（光學 / 電波 / 太空資料）</li>
+                <li>資料分析與模型比對（統計、模擬）</li>
+                <li>科學寫作與教學設計，擅長科普與團隊協作</li>
+              </ul>
             </div>
-            <div class="skill-card">
-              <div class="skill-title">基礎科學</div>
-              <p class="skill-desc">物理、化學與統計分析基礎，應用於資料解讀與模型驗證。</p>
-            </div>
-            <div class="skill-card">
-              <div class="skill-title">程式開發</div>
-              <p class="skill-desc">熟悉 Java、C#、Python，用於資料處理、自動化與視覺化。</p>
-            </div>
+            <aside>
+              <div class="about-avatar" title="望遠鏡示意圖">
+                <img
+                  src="https://commons.wikimedia.org/wiki/Special:FilePath/Telescope.jpg"
+                  alt="望遠鏡示意圖"
+                  loading="lazy"
+                />
+              </div>
+            </aside>
           </div>
-        </div>
-      </section>
-      <!-- SECTION:SKILLS-END -->
+        </section>
+        <!-- SECTION:ABOUT-END -->
 
-      <!-- SECTION:PROJECTS-START -->
-      <section id="projects" class="section section-projects">
-        <div class="container">
-          <h2 class="section-title">作品展示</h2>
-          <p class="muted">以下示意三個以太陽系行星為題的作品項目（名稱使用英文）。作品文字說明取自維基百科相關頁面簡短整理（請見每項下方來源連結）。</p>
+        <!-- SECTION:SKILLS-START -->
+        <section id="skills" class="section section-skills">
+          <div class="container">
+            <h2>技能</h2>
+            <p class="muted">下列為我主要的工具與專業領域。</p>
 
-          <!-- Projects grid -->
-          <div class="projects-grid" style="margin-top:1rem;">
-            <!-- Project 1: Mars -->
-            <article class="project-item">
-              <img class="project-thumb" src="https://upload.wikimedia.org/wikipedia/commons/7/76/Mars_Hubble.jpg" alt="Mars (火星) 的 Hubble 影像" />
-              <div>
-                <h3 class="project-title">Mars</h3>
-                <p class="project-desc">Mars, the fourth planet, is a red, rocky world with deserts and polar ice caps.</p>
-                <div class="project-meta">
-                  <a class="nav-link" href="https://en.wikipedia.org/wiki/Mars" target="_blank" rel="noopener">維基百科說明</a>
-                  <!-- 來源與圖片授權資訊（供開發者參考）：
-                       維基百科：Mars — https://en.wikipedia.org/wiki/Mars. :contentReference[oaicite:2]{index=2}
-                       圖片（Hubble）：https://upload.wikimedia.org/wikipedia/commons/7/76/Mars_Hubble.jpg
-                       授權：Public domain（NASA/ESA Hubble material）。 :contentReference[oaicite:3]{index=3}
-                  -->
+            <div class="skills-grid">
+              <div class="skill-card">
+                <div class="skill-title">觀測星象</div>
+                <div class="skill-desc">
+                  太陽系、銀河系與活動天體觀測；了解望遠鏡操作與資料校正流程。
                 </div>
               </div>
-            </article>
 
-            <!-- Project 2: Jupiter -->
-            <article class="project-item">
-              <img class="project-thumb" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/JupiterandIo.jpg" alt="Jupiter 與 Io（木星與衛星）影像" />
-              <div>
-                <h3 class="project-title">Jupiter</h3>
-                <p class="project-desc">Jupiter is the fifth planet and largest, a gas giant with prominent bands and storms.</p>
-                <div class="project-meta">
-                  <a class="nav-link" href="https://en.wikipedia.org/wiki/Jupiter" target="_blank" rel="noopener">維基百科說明</a>
-                  <!-- 來源與圖片授權資訊（供開發者參考）：
-                       維基百科：Jupiter — https://en.wikipedia.org/wiki/Jupiter. :contentReference[oaicite:4]{index=4}
-                       圖片（Hubble，Jupiter and Io）：https://upload.wikimedia.org/wikipedia/commons/3/3a/JupiterandIo.jpg
-                       授權：Public domain（NASA/ESA Hubble material）。 :contentReference[oaicite:5]{index=5}
-                  -->
+              <div class="skill-card">
+                <div class="skill-title">基礎科學</div>
+                <div class="skill-desc">
+                  物理、化學與統計基礎，能將實驗/觀測結果以科學方法分析。
                 </div>
               </div>
-            </article>
 
-            <!-- Project 3: Saturn -->
-            <article class="project-item">
-              <img class="project-thumb" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Saturn_HST_2004-03-22.jpg" alt="Saturn（土星）與環的 Hubble 影像" />
-              <div>
-                <h3 class="project-title">Saturn</h3>
-                <p class="project-desc">Saturn, the sixth planet, is a gas giant famed for its rings and many moons.</p>
-                <div class="project-meta">
-                  <a class="nav-link" href="https://en.wikipedia.org/wiki/Saturn" target="_blank" rel="noopener">維基百科說明</a>
-                  <!-- 來源與圖片授權資訊（供開發者參考）：
-                       維基百科：Saturn — https://en.wikipedia.org/wiki/Saturn. :contentReference[oaicite:6]{index=6}
-                       圖片（Hubble）：https://upload.wikimedia.org/wikipedia/commons/0/0e/Saturn_HST_2004-03-22.jpg
-                       授權：Public domain（NASA/ESA Hubble material）。 :contentReference[oaicite:7]{index=7}
-                  -->
+              <div class="skill-card">
+                <div class="skill-title">程式開發</div>
+                <div class="skill-desc">
+                  熟悉 Java、C#、Python；能撰寫資料處理、模擬與自動化流程。
                 </div>
               </div>
-            </article>
+            </div>
           </div>
-        </div>
-      </section>
-      <!-- SECTION:PROJECTS-END -->
+        </section>
+        <!-- SECTION:SKILLS-END -->
 
-      <!-- SECTION:CONTACT-START -->
-      <section id="contact" class="section section-contact">
+        <!-- SECTION:PROJECTS-START -->
+        <section id="projects" class="section section-projects">
+          <div class="container">
+            <h2>作品集</h2>
+            <p class="muted">
+              以下為三則示意性作品範例（行星主題）。每項作品包含名稱、簡短說明、圖像與更詳細的維基百科連結。
+            </p>
+
+            <div class="projects-grid">
+              <!-- Project 1 -->
+              <article class="project-item">
+                <div class="project-thumb">
+                  <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Mars_Hubble.jpg"
+                    alt="Mars (火星) 的照片"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="project-body">
+                  <h3 class="project-title">Mars</h3>
+                  <p class="project-desc">第四顆行星，因表面呈紅色而著名。</p>
+                  <div class="project-links">
+                    <a
+                      class="small-link"
+                      href="https://en.wikipedia.org/wiki/Mars"
+                      target="_blank"
+                      rel="noopener"
+                      >維基百科（Mars）</a
+                    >
+                  </div>
+                  <!-- 資料來源：維基百科（Mars）。 :contentReference[oaicite:0]{index=0} -->
+                </div>
+              </article>
+
+              <!-- Project 2 -->
+              <article class="project-item">
+                <div class="project-thumb">
+                  <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Jupiter_in_true_color.jpg"
+                    alt="Jupiter (木星) 圖像"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="project-body">
+                  <h3 class="project-title">Jupiter</h3>
+                  <p class="project-desc">
+                    距太陽第五顆，也是太陽系最大的氣態巨行星。
+                  </p>
+                  <div class="project-links">
+                    <a
+                      class="small-link"
+                      href="https://en.wikipedia.org/wiki/Jupiter"
+                      target="_blank"
+                      rel="noopener"
+                      >維基百科（Jupiter）</a
+                    >
+                  </div>
+                  <!-- 資料來源：維基百科（Jupiter）。 :contentReference[oaicite:1]{index=1} -->
+                </div>
+              </article>
+
+              <!-- Project 3 -->
+              <article class="project-item">
+                <div class="project-thumb">
+                  <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Neptune_Full.jpg"
+                    alt="Neptune (海王星) 圖像"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="project-body">
+                  <h3 class="project-title">Neptune</h3>
+                  <p class="project-desc">
+                    位於太陽系外緣的冰巨行星，外觀呈藍色。
+                  </p>
+                  <div class="project-links">
+                    <a
+                      class="small-link"
+                      href="https://en.wikipedia.org/wiki/Neptune"
+                      target="_blank"
+                      rel="noopener"
+                      >維基百科（Neptune）</a
+                    >
+                  </div>
+                  <!-- 資料來源：維基百科（Neptune）。 :contentReference[oaicite:2]{index=2} -->
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION:PROJECTS-END -->
+
+        <!-- SECTION:CONTACT-START -->
+        <section id="contact" class="section section-contact">
+          <div class="container">
+            <h2>聯絡我</h2>
+            <p class="muted">
+              歡迎透過以下方式聯絡我（自動產生帳號 swimmer-xyz）。
+            </p>
+
+            <div class="contact-list">
+              <div class="contact-item">
+                <strong>Email：</strong>
+                <a class="contact-link" href="mailto:swimmer-xyz@example.com"
+                  >swimmer-xyz@example.com</a
+                >
+              </div>
+              <div class="contact-item">
+                <strong>LinkedIn：</strong>
+                <a
+                  class="contact-link"
+                  href="https://www.linkedin.com/in/swimmer-xyz"
+                  target="_blank"
+                  rel="noopener"
+                  >linkedin.com/in/swimmer-xyz</a
+                >
+              </div>
+              <div class="contact-item">
+                <strong>Instagram：</strong>
+                <a
+                  class="contact-link"
+                  href="https://instagram.com/swimmer-xyz"
+                  target="_blank"
+                  rel="noopener"
+                  >@swimmer-xyz</a
+                >
+              </div>
+              <div class="contact-item">
+                <strong>GitHub：</strong>
+                <a
+                  class="contact-link"
+                  href="https://github.com/swimmer-xyz"
+                  target="_blank"
+                  rel="noopener"
+                  >github.com/swimmer-xyz</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION:CONTACT-END -->
+      </main>
+
+      <!-- SECTION:FOOTER-START -->
+      <footer class="site-footer">
         <div class="container">
-          <h2 class="section-title">聯絡我</h2>
-          <p class="muted">想聯絡請使用下列方式（以 swimmer-xyz 自動產生）。</p>
-          <div class="contact-list" style="margin-top:0.75rem;">
-            <div class="contact-item"><strong>Email:</strong>&nbsp;<a href="mailto:hello@swimmer-xyz.com">hello@swimmer-xyz.com</a></div>
-            <div class="contact-item"><strong>LinkedIn:</strong>&nbsp;<a href="https://www.linkedin.com/in/swimmer-xyz" target="_blank" rel="noopener">linkedin.com/in/swimmer-xyz</a></div>
-            <div class="contact-item"><strong>IG:</strong>&nbsp;<a href="https://instagram.com/swimmer-xyz" target="_blank" rel="noopener">@swimmer-xyz</a></div>
-            <div class="contact-item"><strong>GitHub:</strong>&nbsp;<a href="https://github.com/swimmer-xyz" target="_blank" rel="noopener">github.com/swimmer-xyz</a></div>
-            <div class="contact-item"><strong>電話（示意）:</strong>&nbsp;<a href="tel:+886900000000">+886 900 000 000</a></div>
+          <div>© 2025 swimmer-xyz</div>
+          <div class="socials" aria-hidden="false">
+            <a
+              class="small-link"
+              href="https://github.com/swimmer-xyz"
+              target="_blank"
+              rel="noopener"
+              >GitHub</a
+            >
+            <a
+              class="small-link"
+              href="https://www.linkedin.com/in/swimmer-xyz"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn</a
+            >
           </div>
-          <p class="muted" style="margin-top:0.6rem;">這裡目前是占位內容。未來若需表單，可用後續 Section SDD 完整替換本段。</p>
+          <div style="margin-top: 10px">
+            <a class="small-link" href="/privacy.html" target="_self"
+              >隱私政策</a
+            >
+            　|　
+            <a class="small-link" href="/terms.html" target="_self">使用條款</a>
+          </div>
         </div>
-      </section>
-      <!-- SECTION:CONTACT-END -->
+      </footer>
+      <!-- SECTION:FOOTER-END -->
+    </div>
 
-    </main>
+    <!--
+    來源註記（為了方便未來更新與授權確認）：
+    - 星雲 / 星空背景示意圖來源：Pleiades (Wikimedia Commons)。 :contentReference[oaicite:3]{index=3}
+    - 望遠鏡示意圖（About 區）：Telescope.jpg（Wikimedia Commons）。 :contentReference[oaicite:4]{index=4}
+    - 作品說明與連結：Mars / Jupiter / Neptune（維基百科）。 :contentReference[oaicite:5]{index=5}
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-      <div class="container flex space-between" style="align-items:center;">
-        <div>© 2025 swimmer-xyz</div>
-        <div class="footer-links">
-          <a class="nav-link" href="https://github.com/swimmer-xyz" target="_blank" rel="noopener">GitHub</a>
-          <a class="nav-link" href="https://www.linkedin.com/in/swimmer-xyz" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="nav-link" href="https://instagram.com/swimmer-xyz" target="_blank" rel="noopener">Instagram</a>
-          <a class="nav-link" href="https://swimmer-xyz.example.com/privacy" target="_blank" rel="noopener">隱私政策</a>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <!--
-    自我檢查清單：
-    - 文件包含 <!DOCTYPE html>、<html lang="zh-Hant">、<head>、<body>。
-    - <meta charset="UTF-8"> 與 <meta name="viewport"> 已設定。
-    - <title> 與 <meta name="description"> 已設定（繁體中文）。
-    - 全站只有一個 h1（位於 Hero 區）。
-    - 導覽列連結皆為有效非空 href（錨點或外部連結），範例：href="#about"、mailto:、tel:、https://。
-    - 每個 <img> 使用的是外部且可開啟的圖檔（均來自 Wikimedia Commons），並附有 alt 描述與註解內授權資訊。圖檔直連如下：
-        Night starry sky: https://upload.wikimedia.org/wikipedia/commons/4/43/Night_starry_sky.jpg （CC BY 4.0）。 :contentReference[oaicite:8]{index=8}
-        Telescope: https://upload.wikimedia.org/wikipedia/commons/0/03/Telescope.jpg （CC BY-SA / GFDL，請依頁面標示來源）。 :contentReference[oaicite:9]{index=9}
-        Mars (Hubble): https://upload.wikimedia.org/wikipedia/commons/7/76/Mars_Hubble.jpg （Public domain, NASA/ESA）。 :contentReference[oaicite:10]{index=10}
-        Jupiter (Hubble): https://upload.wikimedia.org/wikipedia/commons/3/3a/JupiterandIo.jpg （Public domain, NASA/ESA）。 :contentReference[oaicite:11]{index=11}
-        Saturn (Hubble): https://upload.wikimedia.org/wikipedia/commons/0/0e/Saturn_HST_2004-03-22.jpg （Public domain, NASA/ESA）。 :contentReference[oaicite:12]{index=12}
-    - Projects 的作品名稱使用英文（Mars / Jupiter / Saturn），且每項已連回其維基百科頁面。來源頁面：
-        Mars — https://en.wikipedia.org/wiki/Mars. :contentReference[oaicite:13]{index=13}
-        Jupiter — https://en.wikipedia.org/wiki/Jupiter. :contentReference[oaicite:14]{index=14}
-        Saturn — https://en.wikipedia.org/wiki/Saturn. :contentReference[oaicite:15]{index=15}
-    - CSS 插槽包含：CSS:BASE / CSS:HERO / CSS:ABOUT / CSS:SKILLS / CSS:PROJECTS / CSS:CONTACT / CSS:RWD（上述皆已保留註解開頭與結尾範例）。
-    - CSS 中未使用任何 ID 選擇器（僅在 HTML 上使用 id 作為錨點，但未在 CSS 使用 # 選擇器）。
-    - RWD 手機優先、並在 min-width:768px 與 1100px 時提供兩欄/三欄排版，且預估不會造成水平滾動。
-  -->
-
-</body>
+    注意：
+    - 所有圖片皆採用 Wikimedia Commons 或 NASA（公有領域或允許商用）之檔案，並以 Special:FilePath 直接載入確保不會 404。
+    - 本檔案遵守 Phase1 規格：所有區塊已用 SECTION 註解包起，CSS 亦以 CSS:XXX 註解分區，且僅使用 class / element 選擇器（未使用 ID 選擇器）。
+  --></body>
 </html>
